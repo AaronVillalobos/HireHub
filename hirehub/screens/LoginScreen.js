@@ -1,6 +1,5 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View, TextInput, SafeAreaView, Button } from "react-native";
 
 WelcomeFrame = () => {
@@ -13,19 +12,21 @@ WelcomeFrame = () => {
 }
 
 LoginFrame = () => {
-    const [username, setUsername] = React.useState('');
+    const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+
     return (
         <SafeAreaView style={styles.login}>
             <TextInput
                 style={styles.input}
                 placeholder="Email"
-                onChangeText={setUsername}
-                value={username}
+                onChangeText={setEmail}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Password"
+                onChangeText={setPassword}
+                secureTextEntry={true}
             />
             <Button
                 title="Login"
@@ -36,17 +37,19 @@ LoginFrame = () => {
 }
 
 SignUp = () => {
+    const navigation = useNavigation();
+
     return (
         <SafeAreaView>
-            <View style={styles.signupnow}>
+            <View style={styles.sign_up}>
                 <Text>Don't have an account?</Text>
                 <Button
                     title="Sign up"
-                    textSize={8}
                 />
-                <Text>Or</Text>
+                <Text style={{fontSize: 20}}>or</Text>
                 <Button
                     title="Continue as Guest"
+                    onPress={() => navigation.navigate('Home')}
                 />
             </View>
         </SafeAreaView>
@@ -89,7 +92,7 @@ const styles = StyleSheet.create( {
         width: 320,
         fontSize: 16,
     },
-    signupnow: {
+    sign_up: {
         alignItems: 'center'
     },
 });
